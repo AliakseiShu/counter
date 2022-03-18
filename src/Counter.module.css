@@ -1,0 +1,19 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #00bfff;
+    width: 200px;
+    height: 200px;
+}
+
+.counter {
+    border: 2px solid #61dafb;
+    border-radius: 5px;
+    max-width: 300px;
+    min-width: 200px;
+    margin: 20px auto;
+    background-color: #282c34;
+}

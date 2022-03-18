@@ -8,6 +8,14 @@
     color: black
 }
 
+.counter {
+    border: 2px solid #61dafb;
+    border-radius: 5px;
+    max-width: 300px;
+    min-width: 200px;
+    margin: 20px auto;
+    background-color: #282c34;
+}
 
 .display {
     border: 2px solid #61dafb;
@@ -19,6 +27,8 @@
 }
 
 .buttonTable {
+    display: flex;
+    justify-content:space-between;
     max-width: 290px;
     min-width: 100px;
     margin: 5px auto;
@@ -26,15 +36,4 @@
     border-radius: 5px;
 }
 
-.button {
-    display: flex;
-    justify-content: space-between;
-    align-content: space-between;
-    margin: 5px;
-}
-.buttonBox {
-    background-color: white;
-    color: black;
-    border: 2px solid red;
-    border-radius: 5px;
-}
+
