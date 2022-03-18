@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useState } from 'react';
 import './App.css';
-import s from './Counter.module.css';
-import { Counter } from './Counter'
-import { SecondCounter } from "./SecondCounter";
+import s from './First.module.css';
+import { SecondCounter } from './SecondCounter'
+import { FirstCounter } from "./FirstCounter";
 
 function App() {
 
-  const maxValue = 5
+
 
   let [counter, setCounter] = useState(0)
 
@@ -14,48 +14,67 @@ function App() {
   let [valueInputMax, setValueInputMax] = useState(0)
   let [valueInputStart, setValueInputStart] = useState(0)
 
+  let [edit, setEdit] = useState<null | string>(null)
+
 
   const inc = () => {
-    if (counter < maxValue) {
-      setCounter(counter + 1);
-    }
+    return counter < valueInputMax ? setCounter(counter +1) :counter
   }
   const reset = () => {
-    setCounter(0)
+    return counter > valueInputStart ? setCounter(counter = valueInputStart) :counter
   }
 
   const set = () => {
-    setCounter(0)
+    setCounter(valueInputStart)
+    setEdit(null)
   }
 
+  const disablesInc = counter === valueInputMax
 
   const onChangeHandlerMax = (e: ChangeEvent<HTMLInputElement>) => {
-    setValueInputMax(Number(e.currentTarget.value))
+    let value = Number(e.currentTarget.value)
+    setValueInputMax(value)
+    if (value <= valueInputStart) {
+      setEdit('Incorrect value')
+        } else {
+      setEdit('Enter SET')
+    }
   }
+
   const onChangeHandlerStart = (e: ChangeEvent<HTMLInputElement>) => {
-    setValueInputStart(Number(e.currentTarget.value))
+    let value = Number(e.currentTarget.value)
+    setValueInputStart(value)
+    if (value < 0 || value>= valueInputMax) {
+      setEdit('Incorrect value')
+    } else {
+      setEdit('Enter SET')
+    }
   }
 
   return (
     <div className="App">
-      <div className={s.counter}>
-        <Counter
-          inc={inc}
-          reset={reset}
-          maxValue={maxValue}
-          counter={counter}
-        />
-      </div>
-      <div className={s.counter}>
-        <SecondCounter
+      <div className={s.firstCounter}>
+        <FirstCounter
           onChangeHandlerMax={onChangeHandlerMax}
           onChangeHandlerStart={onChangeHandlerStart}
           valueInputMax={valueInputMax}
           valueInputStart={valueInputStart}
           set={set}
+          disablesInc={disablesInc}
 
         />
       </div>
+
+      <div className={s.counter}>
+        <SecondCounter
+          inc={inc}
+          reset={reset}
+          valueInputMax={valueInputMax}
+          counter={counter}
+
+        />
+      </div>
+
     </div>
   );
 }

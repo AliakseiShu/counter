@@ -1,33 +1,40 @@
-import React, { ChangeEvent } from 'react';
-import { Input } from "./Input";
+import React from 'react';
 import Button from "./Button";
-import s from './Button.module.css';
+import { CounterDisplay } from "./CounterDisplay";
+import s from './First.module.css';
 
-type SecondCounterType = {
-  onChangeHandlerMax: (e: ChangeEvent<HTMLInputElement>) => void
-  onChangeHandlerStart: (e: ChangeEvent<HTMLInputElement>) => void
+type CounterType = {
+  inc: () => void
+  reset: () => void
   valueInputMax: number
-  valueInputStart: number
-  set: () => void
+  counter: number
+
 }
-export const SecondCounter = (props: SecondCounterType) => {
+export const SecondCounter = (props: CounterType) => {
 
   return (
-    <div className={s.display}>
+
+    <div>
       <div className={s.display}>
-        <Input
-          onChangeHandler={props.onChangeHandlerMax}
-          value={props.valueInputMax}
+        <CounterDisplay
+          counter={props.counter}
+          maxValue={props.valueInputMax}
         />
-        <Input
-          onChangeHandler={props.onChangeHandlerStart}
-          value={props.valueInputStart}/>
       </div>
-      <div className={s.buttonBox}>
-        <Button
-          name={'set'}
-          callBack={props.set}
-        />
+      <div className={s.buttonTable}>
+        <div>
+          <Button
+            name={'inc'}
+            callBack={props.inc}
+            disabled={props.counter >= props.valueInputMax ? true : false}
+          />
+        </div>
+        <div >
+          <Button
+            name={'reset'}
+            callBack={props.reset}
+          />
+        </div>
       </div>
     </div>
 
