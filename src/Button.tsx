@@ -1,20 +1,21 @@
 import React from 'react';
+import s from './First.module.css';
 
-export type ButtonType = {
+export type ButtonPropsType = {
   name: string
   callBack: () => void
   disabled?: boolean
 
 }
-export const Button = (props: ButtonType) => {
+export const Button = (props: ButtonPropsType) => {
   const onClickButtonHandler = () => {
     props.callBack()
   }
   return (
     <button
       onClick={onClickButtonHandler}
-      disabled={props.disabled}
-          >{props.name}</button>
+      className={`${s.btn} ${props.disabled === true ? s.disabled : ''}`}>
+      {props.name}</button>
   );
 };
 

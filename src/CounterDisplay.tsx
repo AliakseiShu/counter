@@ -1,19 +1,19 @@
 import React from 'react';
-import s from './CounterDisplay.module.css'
+import s from './First.module.css'
 
 export type CounterDisplayType = {
   counter: number
   maxValue: number
+  edit:string | null
 }
 
 export const CounterDisplay = (props: CounterDisplayType) => {
-/*let newCounterStyle = props.counter === props.maxValue ? s.maxOn : s.maxOff
-  console.log(typeof s.maxOn)*/
+  let result = props.edit === 'Incorrect value' ? s.errorMessage : s.normalMessage
+  let resultColor = props.counter === props.maxValue ? s.maxOn : s.maxOff
   return (
-         <div className={`${props.counter === props.maxValue ? s.maxOn : s.maxOff}`}>
-           <p>{props.counter}</p>
+         <div>
+           {props.edit ? <div className={result}>{props.edit}</div> : <div className={resultColor}> {props.counter}</div>}
          </div>
         );
 }
-/*
-className={'counter === maxValue ? style.max : style.notMax'}*/
+

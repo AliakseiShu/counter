@@ -8,7 +8,9 @@ type CounterType = {
   reset: () => void
   valueInputMax: number
   counter: number
-
+  edit: string | null
+  disablesReset: boolean
+  disablesInc: boolean
 }
 export const SecondCounter = (props: CounterType) => {
 
@@ -19,6 +21,7 @@ export const SecondCounter = (props: CounterType) => {
         <CounterDisplay
           counter={props.counter}
           maxValue={props.valueInputMax}
+          edit={props.edit}
         />
       </div>
       <div className={s.buttonTable}>
@@ -26,13 +29,14 @@ export const SecondCounter = (props: CounterType) => {
           <Button
             name={'inc'}
             callBack={props.inc}
-            disabled={props.counter >= props.valueInputMax ? true : false}
+            disabled={props.disablesInc}
           />
         </div>
-        <div >
+        <div>
           <Button
             name={'reset'}
             callBack={props.reset}
+            disabled={props.disablesReset}
           />
         </div>
       </div>

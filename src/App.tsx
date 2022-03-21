@@ -1,42 +1,60 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import './App.css';
 import s from './First.module.css';
 import { SecondCounter } from './SecondCounter'
 import { FirstCounter } from "./FirstCounter";
+import { json } from "stream/consumers";
 
 function App() {
 
-
-
   let [counter, setCounter] = useState(0)
-
 
   let [valueInputMax, setValueInputMax] = useState(0)
   let [valueInputStart, setValueInputStart] = useState(0)
 
   let [edit, setEdit] = useState<null | string>(null)
 
-
   const inc = () => {
-    return counter < valueInputMax ? setCounter(counter +1) :counter
+    return counter < valueInputMax ? setCounter(counter + 1) : counter
   }
   const reset = () => {
-    return counter > valueInputStart ? setCounter(counter = valueInputStart) :counter
+    return counter > valueInputStart ? setCounter(counter = valueInputStart) : counter
   }
 
+  useEffect(() => {
+    let valueInputMaxAsString = localStorage.getItem('valueInputMax')
+    let valueInputStartAsString = localStorage.getItem('valueInputStart')
+    if (valueInputMaxAsString && valueInputStartAsString) {
+      setValueInputMax(+valueInputMaxAsString)
+      setValueInputStart(+valueInputStartAsString)
+    }
+  }, [])
+
   const set = () => {
+    localStorage.setItem('valueInputMax', JSON.stringify(valueInputMax))
+    localStorage.setItem('valueInputStart', JSON.stringify(valueInputStart))
     setCounter(valueInputStart)
     setEdit(null)
   }
 
-  const disablesInc = counter === valueInputMax
+  const disablesInc = valueInputMax === counter || valueInputStart < 0
+  const disablesSet = valueInputStart < 0 || valueInputStart >= valueInputMax
+  const disablesReset = counter === 0
+
+
+  const titleMax = 'max value:'
+  const titleStart = 'start value:'
+
+  const classRedMax = valueInputMax <= valueInputStart ? s.red : ' '
+  const classRedStart = valueInputStart < 0 || valueInputStart >= valueInputMax ? s.red : ' '
+
 
   const onChangeHandlerMax = (e: ChangeEvent<HTMLInputElement>) => {
     let value = Number(e.currentTarget.value)
     setValueInputMax(value)
     if (value <= valueInputStart) {
       setEdit('Incorrect value')
-        } else {
+    } else {
       setEdit('Enter SET')
     }
   }
@@ -44,7 +62,7 @@ function App() {
   const onChangeHandlerStart = (e: ChangeEvent<HTMLInputElement>) => {
     let value = Number(e.currentTarget.value)
     setValueInputStart(value)
-    if (value < 0 || value>= valueInputMax) {
+    if (value < 0 || value >= valueInputMax) {
       setEdit('Incorrect value')
     } else {
       setEdit('Enter SET')
@@ -60,8 +78,11 @@ function App() {
           valueInputMax={valueInputMax}
           valueInputStart={valueInputStart}
           set={set}
-          disablesInc={disablesInc}
-
+          titleMax={titleMax}
+          titleStart={titleStart}
+          classRedMax={classRedMax}
+          classRedStart={classRedStart}
+          disablesSet={disablesSet}
         />
       </div>
 
@@ -71,7 +92,9 @@ function App() {
           reset={reset}
           valueInputMax={valueInputMax}
           counter={counter}
-
+          edit={edit}
+          disablesReset={disablesReset}
+          disablesInc={disablesInc}
         />
       </div>
 
