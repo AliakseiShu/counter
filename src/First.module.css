@@ -26,8 +26,6 @@
     background-color: #282c34;
 }
 
-
-
 .display {
     border: 2px solid #61dafb;
     border-radius: 5px;
@@ -59,6 +57,7 @@
 }
 
 .input {
+    color: white;
     max-width: 400px;
     min-width: 100px;
     margin: 10px auto;
@@ -70,4 +69,16 @@
     margin: 10px auto;
     border: 2px solid #61dafb;
     border-radius: 5px;
+}
+.errorMessage {
+    color: red;
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 40px;
+}
+.normalMessage{
+    color:wheat;
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 40px;
 }

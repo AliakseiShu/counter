@@ -6,22 +6,18 @@ import { FirstCounter } from "./FirstCounter";
 
 function App() {
 
-
-
   let [counter, setCounter] = useState(0)
-
 
   let [valueInputMax, setValueInputMax] = useState(0)
   let [valueInputStart, setValueInputStart] = useState(0)
 
   let [edit, setEdit] = useState<null | string>(null)
 
-
   const inc = () => {
-    return counter < valueInputMax ? setCounter(counter +1) :counter
+    return counter < valueInputMax ? setCounter(counter + 1) : counter
   }
   const reset = () => {
-    return counter > valueInputStart ? setCounter(counter = valueInputStart) :counter
+    return counter > valueInputStart ? setCounter(counter = valueInputStart) : counter
   }
 
   const set = () => {
@@ -30,13 +26,19 @@ function App() {
   }
 
   const disablesInc = counter === valueInputMax
+  const titleMax = 'max value:'
+  const titleStart = 'start value:'
+
+  const classRedMax = valueInputMax <= valueInputStart ? 'red' : ' '
+  const classRedStart = valueInputStart < 0 || valueInputStart >= valueInputMax ? 'red' : ' '
+
 
   const onChangeHandlerMax = (e: ChangeEvent<HTMLInputElement>) => {
     let value = Number(e.currentTarget.value)
     setValueInputMax(value)
     if (value <= valueInputStart) {
       setEdit('Incorrect value')
-        } else {
+    } else {
       setEdit('Enter SET')
     }
   }
@@ -44,7 +46,7 @@ function App() {
   const onChangeHandlerStart = (e: ChangeEvent<HTMLInputElement>) => {
     let value = Number(e.currentTarget.value)
     setValueInputStart(value)
-    if (value < 0 || value>= valueInputMax) {
+    if (value < 0 || value >= valueInputMax) {
       setEdit('Incorrect value')
     } else {
       setEdit('Enter SET')
@@ -61,8 +63,11 @@ function App() {
           valueInputStart={valueInputStart}
           set={set}
           disablesInc={disablesInc}
-
-        />
+          titleMax={titleMax}
+          titleStart={titleStart}
+          classRedMax={classRedMax}
+          classRedStart={classRedStart}
+                  />
       </div>
 
       <div className={s.counter}>
@@ -71,7 +76,7 @@ function App() {
           reset={reset}
           valueInputMax={valueInputMax}
           counter={counter}
-
+          edit={edit}
         />
       </div>
 

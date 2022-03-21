@@ -10,6 +10,10 @@ type SecondCounterType = {
   valueInputStart: number
   set: () => void
   disablesInc:boolean
+  titleMax:string
+  titleStart:string
+  classRedMax:string
+  classRedStart:string
 }
 export const FirstCounter = (props: SecondCounterType) => {
 
@@ -18,14 +22,20 @@ export const FirstCounter = (props: SecondCounterType) => {
       <div className={s.inputTable}>
         <div className={s.input}>
         <Input
+          title={props.titleMax}
           onChangeHandler={props.onChangeHandlerMax}
           value={props.valueInputMax}
+          classRed={props.classRedMax}
         />
         </div>
         <div className={s.input}>
         <Input
+          title={props.titleStart}
           onChangeHandler={props.onChangeHandlerStart}
-          value={props.valueInputStart}/>
+          value={props.valueInputStart}
+          classRed={props.classRedStart}
+        />
+
           </div>
       </div>
       <div className={s.inputButton}>
