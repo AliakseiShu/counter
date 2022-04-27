@@ -14,7 +14,6 @@ type SecondCounterType = {
   titleStart: string
   classRedMax: string
   classRedStart: string
-
 }
 export const FirstCounter = (props: SecondCounterType) => {
 

@@ -70,19 +70,22 @@
     border: 2px solid #61dafb;
     border-radius: 5px;
 }
+
 .errorMessage {
     color: red;
     font-size: 30px;
     font-weight: bold;
     padding-top: 40px;
 }
-.normalMessage{
+
+.normalMessage {
     color: white;
     font-size: 30px;
     font-weight: bold;
     padding-top: 40px;
 }
-.btn,a.btn {
+
+.btn, a.btn {
     width: 100px;
     height: 80px;
     background-color: #1aff00;
@@ -92,11 +95,13 @@
     color: darkslategray;
     text-align: center;
 }
-.disabled{
+
+.disabled {
     color: grey;
     background-color: #9a2626;
 
 }
-.red{
+
+.red {
     background-color: #da0505;
 }
