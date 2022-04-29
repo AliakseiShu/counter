@@ -85,23 +85,6 @@
     padding-top: 40px;
 }
 
-.btn, a.btn {
-    width: 100px;
-    height: 80px;
-    background-color: #1aff00;
-    display: inline-block;
-    border-radius: 20px;
-    font-size: 30px;
-    color: darkslategray;
-    text-align: center;
-}
-
-.disabled {
-    color: grey;
-    background-color: #9a2626;
-
-}
-
 .red {
     background-color: #da0505;
 }
