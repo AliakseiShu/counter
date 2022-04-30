@@ -2,57 +2,57 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from "../Counter/Counter.module.css";
 import {Counter} from "./Counter";
 import {Setting} from "./Setting";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../BLL/store";
+import {
+    editValueAC,
+    increaseValueAC,
+    resetStartValueAC,
+    setMaxValueAC,
+    setStartValueAC
+} from "../BLL/counterReducer";
 
 export const CounterContainer = () => {
-    let [counter, setCounter] = useState(0)
 
-    let [valueInputMax, setValueInputMax] = useState(0)
-
-    let [valueInputStart, setValueInputStart] = useState(0)
-
-    let [edit, setEdit] = useState<null | string>(null)
-
+    const counter = useSelector<AppRootStateType, number>(state => state.counter.counter)
+    const valueInputMax = useSelector<AppRootStateType, number>(state => state.counter.valueInputMax)
+    const valueInputStart = useSelector<AppRootStateType, number>(state => state.counter.valueInputStart)
+    const edit = useSelector<AppRootStateType, string>(state => state.counter.edit)
+    const dispatch = useDispatch()
     const inc = () => {
-        return counter < valueInputMax ? setCounter(counter + 1) : counter
+        if (counter < valueInputMax) {
+            dispatch(increaseValueAC())
+        }
     }
     const reset = () => {
-        debugger
-        return counter > valueInputStart ? setCounter(counter = valueInputStart) : counter
-    }
-
-    useEffect(() => {
-        let valueInputMaxAsString = localStorage.getItem('valueInputMax')
-        let valueInputStartAsString = localStorage.getItem('valueInputStart')
-        if (valueInputMaxAsString && valueInputStartAsString) {
-            setValueInputMax(+valueInputMaxAsString)
-            setValueInputStart(+valueInputStartAsString)
+        if (counter > valueInputStart) {
+            dispatch(resetStartValueAC())
         }
-    }, [])
-
+    }
     const set = () => {
         localStorage.setItem('valueInputMax', JSON.stringify(valueInputMax))
         localStorage.setItem('valueInputStart', JSON.stringify(valueInputStart))
-        setCounter(valueInputStart)
-        setEdit(null)
+        dispatch(resetStartValueAC())
+        dispatch(editValueAC(''))
     }
 
     const onChangeHandlerMax = (e: ChangeEvent<HTMLInputElement>) => {
         let value = Number(e.currentTarget.value)
-        setValueInputMax(value)
+        dispatch(setMaxValueAC(value))
         if (value <= valueInputStart) {
-            setEdit('Incorrect value')
+            dispatch(editValueAC('Incorrect value'))
         } else {
-            setEdit('Enter SET')
+            dispatch(editValueAC('Enter SET'))
         }
     }
 
     const onChangeHandlerStart = (e: ChangeEvent<HTMLInputElement>) => {
         let value = Number(e.currentTarget.value)
-        setValueInputStart(value)
+        dispatch(setStartValueAC(value))
         if (value < 0 || value >= valueInputMax) {
-            setEdit('Incorrect value')
+            dispatch(editValueAC('Incorrect value'))
         } else {
-            setEdit('Enter SET')
+            dispatch(editValueAC('Enter SET'))
         }
     }
 
@@ -78,7 +78,6 @@ export const CounterContainer = () => {
                     valueInputStart={valueInputStart}
                 />
             </div>
-
         </div>
     );
 }

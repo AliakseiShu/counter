@@ -11,7 +11,7 @@ type InputPropsType = {
 
 export const Input = (props: InputPropsType) => {
 
-    return (
+      return (
         <>
             {props.title} <input className={props.classRed}
                                  type={"number"}

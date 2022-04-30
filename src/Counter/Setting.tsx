@@ -9,7 +9,6 @@ type SettingType = {
     valueInputMax: number
     valueInputStart: number
     set: () => void
-   // disablesSet: boolean
 }
 export const Setting = (props: SettingType) => {
     const classRedMax = props.valueInputMax <= props.valueInputStart ? s.red : ' '
